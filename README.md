@@ -6,6 +6,8 @@
 - clone this repository OR perform the following steps yourself
  </br>
 # STEPS TO BUILD YOUR OWN PROJECT
+</br>
+
 > Scafold your base LWC app structure
 
     - https://lwc.dev/
@@ -368,8 +370,14 @@ Start simple by running `yarn watch` (or `npm run watch`, if you set up the proj
 Completed all steps ? Open the app on `http://localhost:3001` for dev with quick reload.
 
 </br>
-# What's Next ?
+
+## What's Next ?
+</br>
+
+
 > To add new components simply create the component folder inside the modules folder
+
+
 > Component bundle will have the following structure
 
 ```html
