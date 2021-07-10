@@ -6,7 +6,7 @@
 - clone this repository OR perform the following steps yourself
  </br>
 # STEPS TO BUILD YOUR OWN PROJECT
-## Scafold your base LWC app structure
+> Scafold your base LWC app structure
 
     - https://lwc.dev/
     - Run : `npx create-lwc-app my-app`
