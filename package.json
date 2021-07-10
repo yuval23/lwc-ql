@@ -1,8 +1,10 @@
 {
     "name": "lwc-cli",
     "version": "0.0.1",
-    "author": "yuval23",
-    "bugs": "https://github.com/yuval23/lwc-cli/issues",
+    "author": "Yuval Vardi",
+    "homepage": "https://github.com/vyuvalv/lwc-ql",
+    "bugs": "https://github.com/vyuvalv/lwc-ql/issues",
+    "repository": "vyuvalv/lwc-ql",
     "dependencies": {
         "@lwc/synthetic-shadow": "^1.17.6",
         "@salesforce-ux/design-system": "^2.14.3",
@@ -29,7 +31,6 @@
         "npm": ">=6.4.1",
         "yarn": ">=1.9.4"
     },
-    "homepage": "https://github.com/yuval23/lwc-cli",
     "keywords": [
         "lwc"
     ],
@@ -45,7 +46,6 @@
         ],
         "exec": "node ./src/server/api.js"
     },
-    "repository": "yuval23/lwc-cli",
     "scripts": {
         "build": "lwc-services build -m production",
         "build:development": "lwc-services build",
