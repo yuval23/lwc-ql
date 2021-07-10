@@ -9,7 +9,7 @@
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
 </br>
 ### Final Image
-![Main Home Page Screen](./docs/screens/lwc-ql-home.png)
+![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/docs/screens/lwc-ql-home.png)
  </br>
 </br>
 
