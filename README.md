@@ -3,15 +3,21 @@
 
 
 ## How to start?
+
+
 - clone this repository OR perform the following steps yourself
+- `git clone https://github.com/vyuvalv/lwc-ql.git`
+
  </br>
+
+
 # STEPS TO BUILD YOUR OWN PROJECT
 </br>
 
 > Scafold your base LWC app structure
 
-    - https://lwc.dev/
-    - Run : `npx create-lwc-app my-app`
+- `https://lwc.dev/`
+- Run : `npx create-lwc-app my-app`
 
         - The command will create the basic structure and ask a few questions:
             * Do you want to use the simple setup? Yes
@@ -280,8 +286,9 @@ Open in VS Code:
     <details>
         <summary> Expose a service for Client Rest callout to your GraphQL Server  </summary>
         </br>
-    1. Exposing a services method that can be imported from any component using
-        * `import { getData } from '../../data/services/services';`
+    1. Exposing a services method that can be imported from any component using:
+    
+    * `import { getData } from '../../data/services/services';`
 
     2. Service to perform HTTP Post call request
 
