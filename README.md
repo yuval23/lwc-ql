@@ -1,6 +1,6 @@
 # Using LWC OSS With GraphQL - Starter Kit
 
-
+- https://graphql.org/ - Official GraphQL Guide
 
 ## How to start?
 
