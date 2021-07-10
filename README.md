@@ -7,9 +7,11 @@
 
 - clone this repository OR perform the following steps yourself
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
-
+</br>
+### Final Image
+![Main Home Page Screen](./docs/screens/lwc-ql-home.png)
  </br>
-
+</br>
 
 # STEPS TO BUILD YOUR OWN PROJECT
 </br>
