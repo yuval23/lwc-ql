@@ -7,8 +7,9 @@
  </br>
 # STEPS TO BUILD YOUR OWN PROJECT
 ## Scafold your base LWC app structure
-- https://lwc.dev/
-- Run : `npx create-lwc-app my-app`
+
+    - https://lwc.dev/
+    - Run : `npx create-lwc-app my-app`
 
         - The command will create the basic structure and ask a few questions:
             * Do you want to use the simple setup? Yes
