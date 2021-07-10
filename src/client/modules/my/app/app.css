@@ -1,0 +1,18 @@
+:host {
+    --container-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    height: var( --container-height);
+}
+
+.link {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #ff6000;
+    color: white;
+    display: inline-block;
+}

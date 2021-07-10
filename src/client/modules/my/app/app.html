@@ -1,0 +1,18 @@
+<template>
+    <div class="app-container">
+
+    <lightning-card title={pageTitle} >
+        <div slot="actions">
+            <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+        </div>
+        <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+            <lightning-input name="messageInput" value={message} label="Input" class="slds-size_1-of-1" onchange={handleInputChange}></lightning-input>
+            <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>  
+        </div>
+        <div slot="footer" class="slds-grid slds-grid_align-center">
+            <a href="https://lwc.dev" class="slds-button slds-button_brand slds-p-horizontal_small" target="_blank">Learn LWC</a>
+            <a href="https://graphql.org" class="slds-button link" target="_blank">Learn GraphQL</a>
+        </div>
+    </lightning-card>
+</div>
+</template>

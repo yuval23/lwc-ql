@@ -1,0 +1,56 @@
+{
+    "name": "lwc-cli",
+    "version": "0.0.1",
+    "author": "yuval23",
+    "bugs": "https://github.com/yuval23/lwc-cli/issues",
+    "dependencies": {
+        "@lwc/synthetic-shadow": "^1.17.6",
+        "@salesforce-ux/design-system": "^2.14.3",
+        "lightning-base-components": "^1.11.5-alpha",
+        "compression": "^1.7.4",
+        "helmet": "^3.21.2",
+        "express": "^4.17.1",
+        "express-graphql": "^0.12.0",
+        "graphql": "^15.5.1",
+        "jsforce": "^1.10.1",
+        "axios": "^0.21.1",
+        "dotenv": "^8.2.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.30.0",
+        "eslint-plugin-inclusive-language": "^2.1.1",
+        "husky": "^7.0.1",
+        "lwc-services": "^3.1.2",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^2.3.2"
+    },
+    "engines": {
+        "node": ">=10.13.0",
+        "npm": ">=6.4.1",
+        "yarn": ">=1.9.4"
+    },
+    "homepage": "https://github.com/yuval23/lwc-cli",
+    "keywords": [
+        "lwc"
+    ],
+    "license": "MIT",
+    "nodemonConfig": {
+        "watch": [
+            "src/server/**/*.js"
+        ],
+        "ext": "js",
+        "ignore": [
+            "src/**/*.spec.js",
+            "src/**/*.test.js"
+        ],
+        "exec": "node ./src/server/api.js"
+    },
+    "repository": "yuval23/lwc-cli",
+    "scripts": {
+        "build": "lwc-services build -m production",
+        "build:development": "lwc-services build",
+        "watch": "run-p watch:client watch:server",
+        "watch:client": "lwc-services watch",
+        "watch:server": "nodemon"
+    }
+}
