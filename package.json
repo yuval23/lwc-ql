@@ -6,17 +6,17 @@
     "bugs": "https://github.com/vyuvalv/lwc-ql/issues",
     "repository": "vyuvalv/lwc-ql",
     "dependencies": {
-        "@lwc/synthetic-shadow": "^1.17.6",
-        "@salesforce-ux/design-system": "^2.14.3",
-        "lightning-base-components": "^1.11.5-alpha",
+        "@lwc/synthetic-shadow": "^1.18.0",
+        "@salesforce-ux/design-system": "^2.15.8",
+        "axios": "^0.21.1",
         "compression": "^1.7.4",
-        "helmet": "^3.21.2",
+        "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "express-graphql": "^0.12.0",
         "graphql": "^15.5.1",
+        "helmet": "^3.21.2",
         "jsforce": "^1.10.1",
-        "axios": "^0.21.1",
-        "dotenv": "^8.2.0"
+        "lightning-base-components": "^1.11.5-alpha"
     },
     "devDependencies": {
         "eslint": "^7.30.0",

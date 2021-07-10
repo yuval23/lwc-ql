@@ -9,7 +9,7 @@ logs
 
 # Standard dist folder
 /dist
-src/client/assets
+src/client/assets/*
 
 # Tooling files
 node_modules
@@ -31,3 +31,4 @@ $RECYCLE.BIN/
 
 # Husky
 .husky
+

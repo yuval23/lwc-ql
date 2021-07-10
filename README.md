@@ -5,8 +5,12 @@
 ## How to start?
 
 
-- clone this repository OR perform the following steps yourself
+- Clone this repository OR perform the following steps yourself
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
+- Start with `npm install`
+    - `npm i @lwc/synthetic-shadow @salesforce-ux/design-system lightning-base-components`
+- `npm run build:development` - To Copy SLDS folder into `./assets`
+- Run `npm run watch`
 </br>
 
 
