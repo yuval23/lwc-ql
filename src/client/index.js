@@ -1,13 +1,13 @@
 import '@lwc/synthetic-shadow';
 import { createElement } from 'lwc';
-import MyApp from 'my/app';
+import MainApp from 'core/app';
 
-const app = createElement('my-app', { is: MyApp });
+const app = createElement('main-app', { is: MainApp });
 // eslint-disable-next-line @lwc/lwc/no-document-query
 const element = document.querySelector('#main');
 
 window.addEventListener("DOMContentLoaded", () => {
-    const pageName = setHistoryPage();
+    const pageName = setHistoryPage('home');
     // passing the value into our app
     app.pathName = pageName;
     element.appendChild(app);

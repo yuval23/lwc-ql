@@ -200,7 +200,7 @@ Open in VS Code:
     </br>
 
 ## Setting Up your Server
-- Express Server with GraphQL - `/server/api.js`
+- Express Server with GraphQL - `/server/main.js`
     <details>
     <summary> Setting Up Your Server With GraphQL Endpoint </summary>
     </br>

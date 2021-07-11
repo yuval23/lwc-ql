@@ -1,33 +1,33 @@
 const { exec } = require('child_process');
 
-function sfdx(req, res) {
-    // build the command
-    let sfdxCommand = `sfdx force:${req.params.category}:${req.params.command}`;
-    const queryParams = req.query;
-    // merge parameters
-    Object.keys(queryParams).forEach(key => {
-        sfdxCommand += ` -${key}=${queryParams[key]}`;
-    });
-    // read as json
-    sfdxCommand += ` --json`;
-    console.log('run : ' + sfdxCommand);
-    runSfdxCommand(sfdxCommand, res);
-}
 
-function runSfdxCommand(sfdxCommand, res) {
+function runSfdxCommand(command, params) {
+    const sfdxCommand = decodeSfdxCommand(command, params);
     console.log('✅ Running command : ' + sfdxCommand);
+    let results = {};
     try {
         exec(sfdxCommand, (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
+                results = stderr;
                 return error;
             }
-            // console.log(`stdout: ${stdout}`);
-            res.send(stdout)
+            console.log(`stdout: ${stdout}`);
+            results = stdout;
         });
     } catch (error) {
         return console.error(error);
     }
+    return results;
 }
 
-module.exports = { sfdx, runSfdxCommand };
+function decodeSfdxCommand(command, params) {
+    const excludeFlags = ['json', 'help'];
+    const flagsCommand = params ? Object.keys(params)
+                                        .map(key => ({ name: key, value: params[key] }))
+                                        .reduce((cmd, flag) => cmd + ` --${flag.name}${(!excludeFlags.includes(flag.name) ? `=${flag.value}` : "")}`, '') : '';
+   return `sfdx ${command}${flagsCommand}`;
+}
+
+
+module.exports = { runSfdxCommand };
