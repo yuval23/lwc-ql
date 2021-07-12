@@ -32,3 +32,5 @@ $RECYCLE.BIN/
 # Husky
 .husky
 
+src/server/schema/models/genericResponse.js
+src/server/cli/routes.js
