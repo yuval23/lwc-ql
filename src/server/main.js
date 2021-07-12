@@ -6,8 +6,6 @@ const { graphqlHTTP } = require('express-graphql');
 
 // GraphQL
 const rootSchema = require('./schema/root');
-// SFDX
-const { runSfdxCommand } = require('./cli/routes');
 
 const app = express();
 app.use(helmet(), compression(), express.json());
@@ -28,13 +26,6 @@ app.use('/graphql', async(req, res) => {
     })(req, res);
 });
 
-// SFDX Route
-app.get('/api/v1/sfdx/:command', (req, res) => {
-    const results = runSfdxCommand(req.params.command, req.query);
-    if (results) {
-        res.send(results);
-    }
-});
 
 app.use(express.static(DIST_DIR));
 

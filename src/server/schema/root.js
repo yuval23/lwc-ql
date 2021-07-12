@@ -1,4 +1,5 @@
-const { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLList } = require('graphql');
+/* eslint-disable no-unused-vars */
+const { GraphQLString, GraphQLObjectType, GraphQLSchema } = require('graphql');
 
 // INCLUDE FOR SALESFORCE CONNECTION
 // const jsforce = require('jsforce');
