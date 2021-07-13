@@ -1,19 +1,41 @@
 <template>
     <div class="app-container">
+        <lightning-card icon-name="utility:home" title={pageTitle}>
+            <div slot="actions" class="slds-grid slds-grid_align-center">
+                <lightning-button class="slds-p-left_small" label="Show SFDX Response" variant="success" onclick={handleSfdxClick}></lightning-button>
+            </div>
+            <lightning-tabset variant="scoped" active-tab-value="intro">
+                <!-- STEP 1 -->
+                <lightning-tab icon-name="utility:home" label="Intro" value="intro">
+                    <div class="slds-grid slds-wrap">
+                        <lightning-input class="slds-size_10-of-12 slds-small-size_1-of-1 slds-medium-size_10-of-12" name="messageInput" value={message} label="Input" onchange={handleInputChange}></lightning-input>
+                        <lightning-button class="slds-size_2-of-12 slds-small-size_1-of-1 slds-medium-size_2-of-12 slds-align-bottom slds-p-left_medium slds-p-top_medium slds-text-align_center" label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+                    </div>
+                </lightning-tab>
+                <!-- SFDX -->
+                <lightning-tab icon-name="utility:home" label="SFDX" value="sfdx">
+                    <div class="slds-grid slds-wrap">
+                        <lightning-input class="slds-size_10-of-12 slds-small-size_1-of-1 slds-medium-size_10-of-12" disabled name="commandInput" value={command} label="Input"></lightning-input>
+                        <lightning-button class="slds-size_2-of-12 slds-small-size_1-of-1 slds-medium-size_2-of-12 slds-align-bottom slds-p-left_medium slds-p-top_medium slds-text-align_center" label="Call SFDX" variant="success" onclick={handleSfdxClick}></lightning-button>
+                    </div>
+                </lightning-tab>
+                <!-- Salesforce Direct Login -->
+                <lightning-tab icon-name="utility:home" label="JSForce" value="jsforce">
+                    <div class="slds-grid slds-wrap">
+                        <lightning-input class="slds-size_10-of-12 slds-small-size_1-of-1 slds-medium-size_10-of-12" disabled name="commandInput" value={command} label="Input"></lightning-input>
+                        <lightning-button class="slds-size_2-of-12 slds-small-size_1-of-1 slds-medium-size_2-of-12 slds-align-bottom slds-p-left_medium slds-p-top_medium slds-text-align_center" label="Call Salesforce" variant="destructive" onclick={handleSFClick}></lightning-button>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
 
-    <lightning-card title={pageTitle} >
-        <div slot="actions" class="slds-grid slds-grid_align-center">
-            <lightning-button class="slds-p-horizontal_small" label="Show SFDX Response" variant="success" onclick={handleSfdxClick}></lightning-button>
-            <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
-        </div>
-        <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
-            <lightning-input name="messageInput" value={message} label="Input" class="slds-size_1-of-1" onchange={handleInputChange}></lightning-input>
-            <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>  
-        </div>
-        <div slot="footer" class="slds-grid slds-grid_align-center">
-            <a href="https://lwc.dev" class="slds-button slds-button_brand slds-p-horizontal_small" target="_blank">Learn LWC</a>
-            <a href="https://graphql.org" class="slds-button link" target="_blank">Learn GraphQL</a>
-        </div>
-    </lightning-card>
+            <!-- RESPONSE -->
+            <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+                <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
+            </div>
+            <div slot="footer" class="slds-grid slds-grid_align-center">
+                <a href="https://lwc.dev" class="slds-button slds-button_brand slds-p-horizontal_small" target="_blank">Learn LWC</a>
+                <a href="https://graphql.org" class="slds-button link" target="_blank">Learn GraphQL</a>
+            </div>
+        </lightning-card>     
 </div>
 </template>

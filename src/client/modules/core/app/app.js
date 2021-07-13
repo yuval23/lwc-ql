@@ -11,6 +11,7 @@ export default class App extends LightningElement {
     }
 
     message = 'Whoo hooo!!';
+    command = 'commands';
     response = '';
 
     handleInputChange(event) {
@@ -27,12 +28,11 @@ export default class App extends LightningElement {
         this.fetchData(baseQuery);
     }
     handleSfdxClick() {
-        const command = 'commands';
         const flags = `["--json"]`;
         const sfdxQuery = {
             query: `{
                 getSfdxCommands(
-                    command:"${command}",
+                    command:"${this.command}",
                     flags:${flags}
                     ){
                         total
