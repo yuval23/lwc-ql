@@ -26,7 +26,22 @@ export default class App extends LightningElement {
         };
         this.fetchData(baseQuery);
     }
-
+    handleSfdxClick() {
+        const command = 'commands';
+        const flags = `["--json"]`;
+        const sfdxQuery = {
+            query: `{
+                getSfdxCommands(
+                    command:"${command}",
+                    flags:${flags}
+                    ){
+                        total
+                        commands{ id description } 
+                    }
+            }`
+        };
+        this.fetchData(sfdxQuery);
+    }
 
     async fetchData(query) {
         try {

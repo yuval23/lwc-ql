@@ -2,7 +2,8 @@
     <div class="app-container">
 
     <lightning-card title={pageTitle} >
-        <div slot="actions">
+        <div slot="actions" class="slds-grid slds-grid_align-center">
+            <lightning-button class="slds-p-horizontal_small" label="Show SFDX Response" variant="success" onclick={handleSfdxClick}></lightning-button>
             <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
         </div>
         <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">

@@ -3,6 +3,9 @@ const compression = require('compression');
 const helmet = require('helmet');
 const path = require('path');
 const { graphqlHTTP } = require('express-graphql');
+// SFDX
+const { decodeSfdxCommand, runCommand } = require('./cli/routes');
+
 
 // GraphQL
 const rootSchema = require('./schema/root');
@@ -26,6 +29,11 @@ app.use('/graphql', async(req, res) => {
     })(req, res);
 });
 
+// SFDX Route
+app.get('/api/v1/sfdx/:command', (req, res) => {
+    const sfdxCommand = decodeSfdxCommand(req.params.command, req.query);
+    runCommand(sfdxCommand, res);
+});
 
 app.use(express.static(DIST_DIR));
 

@@ -1,34 +1,32 @@
+// eslint-disable-next-line no-unused-vars
 const { exec } = require('child_process');
 
 
-function runSfdxCommand(command, params, res) {
-    const sfdxCommand = decodeSfdxCommand(command, params);
-    console.log('✅ Running command : ' + sfdxCommand);
+async function runCommand(command, res) {
+    console.log('✅ Running command : ' + command);
     try {
+        //const results = execSync(sfdxCommand, { stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 20 * 1024 * 1024 });
         // eslint-disable-next-line no-unused-vars
-        exec(sfdxCommand, (error, stdout, stderr) => {
+       await exec(command, { maxBuffer: 0.8 * 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
             }
-            console.log(`stdout: ${stdout}`);
-            res.send(stdout);
+           // console.log(`stdout: ${stdout}`);
+           res.send(stdout);
         });
     } catch (error) {
         console.error(error);
     }
-   
 }
 
 function decodeSfdxCommand(command, params) {
-    const excludeFlags = ['json', 'help'];
     let flags = params ? Object.keys(params).map(key => ({ name: key, value: params[key] })) : [];
     let sfdxCommand = `sfdx ${command}`;
     if (flags.length) {
-        sfdxCommand += flags.reduce((cmd, flag) => cmd + ` -${flag.name}${(!excludeFlags.includes(flag.name) ? `=${flag.value}` : "")}`, '');
+        sfdxCommand += flags.reduce((cmd, flag) => cmd + ` ${flag.name}${(flag.value ? `=${flag.value}` : "")}`, '');
     }
-    sfdxCommand += ' --json';
    return sfdxCommand;
 }
 
 
-module.exports = { runSfdxCommand };
+module.exports = { decodeSfdxCommand, runCommand };
