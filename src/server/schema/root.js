@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLList } = require('graphql');
-const { CommandResponseSchema } = require('./models/genericResponse');
+const { CommandResponseSchema } = require('./models/commandModel');
 // INCLUDE FOR SALESFORCE CONNECTION
 // const jsforce = require('jsforce');
 // require('dotenv').config();
