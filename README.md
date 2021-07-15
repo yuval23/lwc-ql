@@ -1,6 +1,7 @@
 # Using LWC OSS With GraphQL - Starter Kit
 
-
+- https://lwc.dev - Lightning Web Components 
+- https://graphql.org/ - Official GraphQL Guide
 
 ## How to start?
 
@@ -10,7 +11,7 @@
 - Start with `npm install`
 - Use `npm run build:development` - To Copy SLDS folder into `./assets`
 - Run `npm run watch`
-- View on your port - by default http://localhost:3001
+- View on your port - by default `http://localhost:3001`
 - Start Building Components...
 
 </br>
@@ -20,6 +21,7 @@
 
 
 ![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
+
 
 
  </br>
@@ -202,7 +204,9 @@ Open in VS Code:
     </br>
 
 ## Setting Up your Server
-- Express Server with GraphQL - `/server/main.js`
+
+- Express Server with GraphQL - `/server/main.js` /  `/server/api.js`
+
     <details>
     <summary> Setting Up Your Server With GraphQL Endpoint </summary>
     </br>
@@ -345,10 +349,10 @@ Open in VS Code:
             message = 'Whoo hooo!!';
             response = '';
 
-            
             // button click
             handleClick(event) {
                 // build basic graphQL query
+
                 const baseQuery = {
                     query: `{
                         hello(message:"${this.message}")
@@ -361,6 +365,7 @@ Open in VS Code:
             handleInputChange(event) {
                 this.message = event.target.value;
             }
+
 
             // get Data
             async fetchData(query) {
@@ -382,7 +387,8 @@ Open in VS Code:
 
     ```html
         <template>
-            <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+
+            <div class="slds-grid slds-wrap slds-grid_vertical slds-grid_vertical-align-center">
                 <div class="slds-grid slds-wrap">
                     <!-- Message Input -->
                     <lightning-input name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
@@ -476,6 +482,7 @@ Completed all steps ? Open the app on `http://localhost:3001` for dev with quick
 * We will add it into `./client/modules/c` folder in our modules to match the way Salesforce Project use it. 
 
 
+
 > Component bundle will have the following structure
 
 ```html
@@ -487,7 +494,9 @@ import { LightningElement, api, track } from 'lwc';
 export default class ComponentName extends LightningElement {}
 ```
 > Calling your component from parent html
+
 - use `folderName-component-name` 
 ```html
 <c-component-name></c-component-name>
 ```
+

@@ -1,3 +1,4 @@
+
 /* eslint-disable no-unused-vars */
 const { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLList } = require('graphql');
 // SCHEMA MODELS
@@ -11,11 +12,12 @@ const { login } = require('./utils/force');
 const axios = require('axios').default;
 const SERVER_URL = 'http://localhost:3001';
 
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     description: 'Root Mother of all queries',
     fields: {
-        // sample calls
+        // sample query methods
         hello: {
             type: GraphQLString,
             args: {

@@ -30,3 +30,4 @@ function decodeSfdxCommand(command, params) {
 
 
 module.exports = { decodeSfdxCommand, runCommand };
+
