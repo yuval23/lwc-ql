@@ -1,33 +1,33 @@
+// eslint-disable-next-line no-unused-vars
 const { exec } = require('child_process');
 
-function sfdx(req, res) {
-    // build the command
-    let sfdxCommand = `sfdx force:${req.params.category}:${req.params.command}`;
-    const queryParams = req.query;
-    // merge parameters
-    Object.keys(queryParams).forEach(key => {
-        sfdxCommand += ` -${key}=${queryParams[key]}`;
-    });
-    // read as json
-    sfdxCommand += ` --json`;
-    console.log('run : ' + sfdxCommand);
-    runSfdxCommand(sfdxCommand, res);
-}
 
-function runSfdxCommand(sfdxCommand, res) {
-    console.log('✅ Running command : ' + sfdxCommand);
+async function runCommand(command, res) {
+    console.log('✅ Running command : ' + command);
     try {
-        exec(sfdxCommand, (error, stdout, stderr) => {
+        //const results = execSync(sfdxCommand, { stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 20 * 1024 * 1024 });
+        // eslint-disable-next-line no-unused-vars
+       await exec(command, { maxBuffer: 0.8 * 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
-                return error;
             }
-            // console.log(`stdout: ${stdout}`);
-            res.send(stdout)
+           // console.log(`stdout: ${stdout}`);
+           res.send(stdout);
         });
     } catch (error) {
-        return console.error(error);
+        console.error(error);
     }
 }
 
-module.exports = { sfdx, runSfdxCommand };
+function decodeSfdxCommand(command, params) {
+    let flags = params ? Object.keys(params).map(key => ({ name: key, value: params[key] })) : [];
+    let sfdxCommand = `sfdx ${command}`;
+    if (flags.length) {
+        sfdxCommand += flags.reduce((cmd, flag) => cmd + ` ${flag.name}${(flag.value ? `=${flag.value}` : "")}`, '');
+    }
+   return sfdxCommand;
+}
+
+
+module.exports = { decodeSfdxCommand, runCommand };
+

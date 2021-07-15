@@ -44,7 +44,7 @@
             "src/**/*.spec.js",
             "src/**/*.test.js"
         ],
-        "exec": "node ./src/server/api.js"
+        "exec": "node ./src/server/main.js"
     },
     "scripts": {
         "build": "lwc-services build -m production",

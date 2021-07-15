@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <!-- Command -->
+        <div class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2 slds-grid">
+            <lightning-button-icon class="slds-size_1-of-12 slds-align-bottom" icon-name="utility:edit" variant="bordered" onclick={toggleEditMode}></lightning-button-icon>
+            <lightning-input onchange={handleCommandChange} class="slds-p-horizontal_x-small slds-size_11-of-12" name="commandInput" value={command} label="Command" disabled={disabled} field-level-help="Beta command display"></lightning-input>
+        </div>
+        
+        <!-- Flags -->
+        <div class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2">
+            <template for:each={flags} for:item="flag" for:index="index">
+                <div key={flag.index} class="slds-grid slds-p-horizontal_small slds-grid_align-spread">
+                    <lightning-input onchange={handleFlagChange} class="flag-key slds-size_1-of-4" disabled={flag.disabled} required data-type="field" name={flag.name} value={flag.name} label="Flag Details" field-level-help={flag.description} placeholder="Flag Name"></lightning-input>
+                    <lightning-input onchange={handleFlagChange} type={flag.type} label="Field Value" variant="label-hidden" required class="flag-value slds-align-bottom slds-size_2-of-4 slds-p-horizontal_x-small" data-type="value" name={flag.name} disabled={flag.disabled} checked={flag.checked} value={flag.defaultValue} placeholder="Flag Value"></lightning-input>
+                    <div class="slds-size_1-of-4 slds-grid slds-grid_align-end slds-align-bottom">
+                        <lightning-button-icon class="slds-p-horizontal_x-small" if:true={flag.allowRemove} data-index={flag.index} icon-name="utility:delete" variant="bordered" onclick={handleRemoveFlag}></lightning-button-icon>
+                        <lightning-button-icon class="slds-p-horizontal_x-small" icon-name="utility:add" variant="brand" onclick={handleAddFlag}></lightning-button-icon> 
+                    </div>
+                </div>
+            </template>
+</div>
+</div>
+</template>

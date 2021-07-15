@@ -1,5 +1,6 @@
 # Using LWC OSS With GraphQL - Starter Kit
 
+- https://lwc.dev - Lightning Web Components 
 - https://graphql.org/ - Official GraphQL Guide
 
 ## How to start?
@@ -12,13 +13,15 @@
 - Run `npm run watch`
 - View on your port - by default `http://localhost:3001`
 - Start Building Components...
+
 </br>
 
 
 ### Final Image
 
 
-![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/base/docs/screens/lwc-ql-home.png)
+![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
+
 
 
  </br>
@@ -201,7 +204,9 @@ Open in VS Code:
     </br>
 
 ## Setting Up your Server
-- Express Server with GraphQL - `/server/api.js`
+
+- Express Server with GraphQL - `/server/main.js` /  `/server/api.js`
+
     <details>
     <summary> Setting Up Your Server With GraphQL Endpoint </summary>
     </br>
@@ -343,9 +348,10 @@ Open in VS Code:
 
             message = 'Whoo hooo!!';
             response = '';
+
             // button click
             handleClick(event) {
-                console.log('fire');
+                // build basic graphQL query
 
                 const baseQuery = {
                     query: `{
@@ -354,6 +360,12 @@ Open in VS Code:
                 };
                 this.fetchData(baseQuery);
             }
+
+            // input value on change
+            handleInputChange(event) {
+                this.message = event.target.value;
+            }
+
 
             // get Data
             async fetchData(query) {
@@ -375,8 +387,14 @@ Open in VS Code:
 
     ```html
         <template>
-            <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center ">
-                <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+
+            <div class="slds-grid slds-wrap slds-grid_vertical slds-grid_vertical-align-center">
+                <div class="slds-grid slds-wrap">
+                    <!-- Message Input -->
+                    <lightning-input name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
+                    <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+                </div>
+              
                 <lightning-textarea value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
             </div>
         </template>
@@ -395,7 +413,74 @@ Completed all steps ? Open the app on `http://localhost:3001` for dev with quick
 </br>
 
 
-> To add new components simply create the component folder inside the modules folder
+### GraphQL Query - add a new Data Object
+
+- Create a GraphQL Schema Object for your Response
+
+
+```js
+    const { GraphQLString, GraphQLObjectType, GraphQLID } = require('graphql');
+
+    const ObjectResponseSchema = new GraphQLObjectType({
+        name: 'ObjectName',
+        description: 'Describe your object fields and query methods',
+            fields: () => ({
+                id: { type: GraphQLID },
+                name: { type: GraphQLString }
+            })
+        });
+
+```
+
+- Add a master query method that build the Reuqest and return the Response object
+- Inside your `root.js` we have our master root Query where we will add this ne method
+
+
+```js
+        
+        const RootQuery = new GraphQLObjectType({
+            name: 'RootQueryType',
+            description: 'Root Mother of all queries',
+            fields: {
+                hello: {
+                        type: ObjectResponseSchema,
+                        args: {
+                            name: { type: GraphQLString }
+                        },
+                        async resolve(
+                            parentValue, args, context
+                        ) {
+                            return { 
+                                id:'1',
+                                name: args.name
+                            };
+                        }
+                    },
+                }
+            });
+```
+
+* Use graphql interface to test your queries - `http://localhost:3001/graphql`
+* Add your query call from your client LWC app
+
+```js
+   const graphQuery = { 
+       query: `{ 
+                hello( name:"${this.message}" ){ 
+                        id 
+                        name 
+               } 
+            }` 
+        };
+    // use our service module to call GraphQL
+   const response = await getData(graphQuery);
+```
+
+### Add LWC Components
+
+* To add new components simply create the component folder inside the modules folder
+* We will add it into `./client/modules/c` folder in our modules to match the way Salesforce Project use it. 
+
 
 
 > Component bundle will have the following structure
@@ -409,6 +494,9 @@ import { LightningElement, api, track } from 'lwc';
 export default class ComponentName extends LightningElement {}
 ```
 > Calling your component from parent html
+
+- use `folderName-component-name` 
 ```html
 <c-component-name></c-component-name>
 ```
+
