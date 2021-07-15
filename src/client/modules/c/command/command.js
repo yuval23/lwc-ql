@@ -1,5 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-import { checkInputsValidity } from '../../utils/formUtils';
+import { reportFormValidity } from '../../utils/formUtils';
 
 const DEFAULT_FLAGS = [{
     "name": "json",
@@ -82,7 +82,7 @@ export default class Command extends LightningElement {
         let flags = [];
         const flagNames = this.template.querySelectorAll('.flag-key');
         const flagValues = this.template.querySelectorAll('.flag-value');
-        const valid = checkInputsValidity([...flagNames, ...flagValues]);
+        const valid = reportFormValidity([...flagNames, ...flagValues]);
         // get flag input values
         if (flagNames.length) {
             flagNames.forEach(flagKey => {

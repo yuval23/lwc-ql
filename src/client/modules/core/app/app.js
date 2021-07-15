@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { getData } from '../../data/services/services';
-import { checkInputsValidity } from '../../utils/formUtils';
+import { reportFormValidity } from '../../utils/formUtils';
 
 const LOGIN_INPUTS = ['username', 'instanceUrl', 'password', 'securityToken'];
 
@@ -128,16 +128,15 @@ export default class App extends LightningElement {
     // Build object from input values
     getLoginDetails() {
         const inputs = this.template.querySelectorAll('.login-input');
-        const valid = checkInputsValidity(inputs);
-        let loginValuesObject = {};
-
+        const valid = reportFormValidity(inputs);
+        let formInputs = {};
         if (valid) {
             inputs.forEach(el => {
                 if (el.value) {
-                    loginValuesObject[el.name] = el.value;
+                    formInputs[el.name] = el.value;
                 }
             });
         }
-        return valid ? loginValuesObject : valid;
+        return valid ? formInputs : valid;
     }
 }
