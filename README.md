@@ -5,9 +5,9 @@
 
 ## Demo App 
 - Includes Simple Message to GraphQL
-- Execution of SFDX CLI commands
-- Connection to Salesforce Api via JSForce
-- It meant to provide a quick start for building apps on Salesforce using LWC and GraphQL with data from Salesforce. 
+- Execution of [SFDX CLI commands](https://developer.salesforce.com/tools/sfdxcli)
+- Connection to Salesforce Api via [JSForce](https://jsforce.github.io/)
+- It meant to provide a quick start for building apps on *in and out* of Salesforce using LWC and GraphQL with data from Salesforce. 
 
 ## How to start?
 
@@ -18,6 +18,7 @@
 - Run `npm run watch`
 - View on your port - by default `http://localhost:3001`
 - Start Building Components or fetch more data to your app...
+- Would be reccomended to create a *scratch org* to test the connection
 
 </br>
 
@@ -27,12 +28,10 @@
 
 ![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
 
-
-
- </br>
+</br>
 </br>
 
-# STEPS TO BUILD YOUR OWN PROJECT
+# Steps to build your own Project
 </br>
 
 > Scafold your base LWC app structure
@@ -491,7 +490,6 @@ This will start the project with a local development server.
 
 * To add new components simply create the component folder inside the modules folder
 * We will add it into `./client/modules/c` folder in our modules to match the way Salesforce Project use it. 
-
 
 
 > Component bundle will have the following structure
