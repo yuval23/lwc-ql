@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList, GraphQLID } = require('graphql');
+const { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } = require('graphql');
 
 const SfdxCommand = new GraphQLObjectType({
     name: 'SfdxCommand',
@@ -22,6 +22,3 @@ const CommandResponseSchema = new GraphQLObjectType({
 
 
 module.exports = { CommandResponseSchema };
-
-
-

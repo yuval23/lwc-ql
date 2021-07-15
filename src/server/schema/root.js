@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 const { GraphQLString, GraphQLObjectType, GraphQLSchema, GraphQLList } = require('graphql');
+// SCHEMA MODELS
 const { CommandResponseSchema } = require('./models/commandModel');
+const { SalesforceAuthResponse, LoginInputObject } = require('./models/authModel');
+
 // INCLUDE FOR SALESFORCE CONNECTION
-// const jsforce = require('jsforce');
-// require('dotenv').config();
-// const { LOGIN_URL, CLIENT_KEY, CLIENT_SECRET, REDIRECT_URL } = process.env;
+const { login } = require('./utils/force');
 
 // INCLUDE FOR REST CLIENT CALLS
 const axios = require('axios').default;
@@ -14,7 +15,7 @@ const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     description: 'Root Mother of all queries',
     fields: {
-        // calls query methods
+        // sample calls
         hello: {
             type: GraphQLString,
             args: {
@@ -26,7 +27,7 @@ const RootQuery = new GraphQLObjectType({
                 return args.message;
             }
         },
-        getSfdxCommands: {
+        sfdxCommands: {
             type: CommandResponseSchema,
             args: {
                 command: { type: GraphQLString },
@@ -40,14 +41,32 @@ const RootQuery = new GraphQLObjectType({
                 console.log(`endpoint : ${sfdxCommandEndpoint}`);
                 try {
                     response = await axios.get(sfdxCommandEndpoint);
-                }
-                catch (err) {
+                } catch (err) {
                     return console.log(err);
                 }
                 return {
-                    total: response.data.length ? response.data.length :0,
+                    total: response.data.length ? response.data.length : 0,
                     commands: [...response.data]
                 }
+            }
+        },
+        orgLogin: {
+            type: SalesforceAuthResponse,
+            args: {
+                creds: { type: LoginInputObject }
+            },
+            async resolve(parentValue, { creds }) {
+                const { username, password, securityToken, instanceUrl } = creds;
+                console.log('logging in as : ' + username);
+                let results = {};
+                try {
+                    // Direct login to salesforce
+                    results = await login(username, password + securityToken, instanceUrl);
+
+                } catch (error) {
+                    console.error(error);
+                }
+                return results;
             }
         },
     }
