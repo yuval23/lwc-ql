@@ -7,7 +7,7 @@
 - Includes Simple Message to GraphQL
 - Execution of [SFDX CLI commands](https://developer.salesforce.com/tools/sfdxcli)
 - Connection to Salesforce Api via [JSForce](https://jsforce.github.io/)
-- It meant to provide a quick start for building apps on *in and out* of Salesforce using LWC and GraphQL with data from Salesforce. 
+- It meant to provide a quick start for building apps *in and out* of Salesforce using LWC and GraphQL with data from Salesforce. 
 
 ## How to start?
 
