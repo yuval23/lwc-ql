@@ -19,7 +19,7 @@ export default class App extends LightningElement {
 
     message = 'Whoo hooo!!';
     response = '';
-    loginFields = LOGIN_INPUTS;
+    @track loginFields = LOGIN_INPUTS;
 
     // Intro input message
     handleInputChange(event) {
@@ -36,32 +36,24 @@ export default class App extends LightningElement {
     handleClick() {
         // Build query
         let graphQuery = { query: `{}` };
-        let isValid = false;
         // Toggle Query builder based on active tab
+        // eslint-disable-next-line default-case
         switch (this.activeTab) {
             case 'intro':
                 // check message exists
-                isValid = this.message.length > 1;
-                graphQuery = { query: `{ hello(message:"${this.message}") }` };
+                graphQuery =  this.message.length > 1 ? { query: `{ hello(message:"${this.message}") }` }: false;
                 break;
             case 'sfdx':
-                // Get child component details
-                const { command, flags, valid } = this.template.querySelector('c-command').getOutputCommand();
-                isValid = valid;
-                // console.log('command ' + command);
-                // console.log('flags ' + JSON.stringify(flags));  
-                // this.activeCommand = command;
-                graphQuery = this.generateSfdxCommand(command, flags);
+                 // command component
+                graphQuery = this.getSfdxCommand();
                 break;
             case 'login':
-                // Get login input values 
-                const orgDetails = this.getLoginDetails();
-                isValid = orgDetails;
-                graphQuery = this.generateLoginQuery(orgDetails);
+                // fetch login details 
+                graphQuery = this.generateLoginQuery();
                 break;
         }
 
-        if (isValid && graphQuery) {
+        if (graphQuery) {
             // Run Query
             this.loading = true;
             this.fetchData(graphQuery);
@@ -84,8 +76,13 @@ export default class App extends LightningElement {
     }
 
     // Build an SFDX Command
-    generateSfdxCommand(command, flags) {
-        return {
+    getSfdxCommand() {
+        // Get child component details
+        const { command, flags, valid } = this.template.querySelector('c-command').getOutputCommand();
+        // console.log('command ' + command);
+        // console.log('flags ' + JSON.stringify(flags));  
+        // this.activeCommand = command;
+        return valid ? {
             query: `{
                 sfdxCommands(
                     command:"${command}",
@@ -95,31 +92,36 @@ export default class App extends LightningElement {
                         commands{ id description } 
                     }
             }`
-        };
+        }: valid;
     }
 
     // This will pass the input values for the login using JS Force
-    generateLoginQuery(orgDetails) {
-        // Format for graphQL Query
-        const orgCredentials = JSON.stringify(orgDetails).replace(/"([^"]+)":/g, '$1:');
+    generateLoginQuery() {
+        // Get login input values 
+        const orgDetails = this.getLoginDetails();
+        if(orgDetails){
+            // Format for graphQL Query
+            const orgCredentials = JSON.stringify(orgDetails).replace(/"([^"]+)":/g, '$1:');
 
-        // const sample = `{ 
-        //     username:"test-lm2urzytje72@example.com",
-        //     password:"K7_J!tUEA[A7O",
-        //     securityToken:"JULIUS_CCJR",
-        //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
-        // }`;
+            // const sample = `{ 
+            //     username:"test-lm2urzytje72@example.com",
+            //     password:"K7_J!tUEA[A7O",
+            //     securityToken:"JULIUS_CCJR",
+            //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
+            // }`;
 
-        return {
-            query: `{
-                orgLogin( creds: ${orgCredentials} ){
-                    userId
-                    accessToken
-                    loggedInDate
-                    currentUser { display_name }
-                }
-            }`
-        };
+            return {
+                query: `{
+                    orgLogin( creds: ${orgCredentials} ){
+                        userId
+                        accessToken
+                        loggedInDate
+                        currentUser { display_name }
+                    }
+                }`
+            };
+        }
+        return orgDetails;
     }
 
     // Check and inform validy 
