@@ -6,7 +6,7 @@
 ## Demo App 
 - Includes Simple Message to GraphQL
 - Execution of SFDX CLI commands
-- Connection to Salesforce Api via JSForce
+- Connection to Salesforce Api via [JSForce](https://jsforce.github.io/)
 - It meant to provide a quick start for building apps on Salesforce using LWC and GraphQL with data from Salesforce. 
 
 ## How to start?
@@ -27,9 +27,7 @@
 
 ![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
 
-
-
- </br>
+</br>
 </br>
 
 # STEPS TO BUILD YOUR OWN PROJECT
@@ -136,8 +134,6 @@ Open in VS Code:
     <details>
     <summary> Add Lightning Base Components module </summary>
     </br>
-
-  
 
     * `lwc.config.json` - will add the base component location to the bundle
 
@@ -485,7 +481,6 @@ Completed all steps ? Open the app on `http://localhost:3001` for dev with quick
 
 * To add new components simply create the component folder inside the modules folder
 * We will add it into `./client/modules/c` folder in our modules to match the way Salesforce Project use it. 
-
 
 
 > Component bundle will have the following structure
