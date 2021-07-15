@@ -5,7 +5,7 @@
 
 ## Demo App 
 - Includes Simple Message to GraphQL
-- Execution of SFDX CLI commands
+- Execution of [SFDX CLI commands](https://developer.salesforce.com/tools/sfdxcli)
 - Connection to Salesforce Api via [JSForce](https://jsforce.github.io/)
 - It meant to provide a quick start for building apps on Salesforce using LWC and GraphQL with data from Salesforce. 
 
@@ -18,6 +18,7 @@
 - Run `npm run watch`
 - View on your port - by default `http://localhost:3001`
 - Start Building Components or fetch more data to your app...
+- Would be reccomended to create a *scratch org* to test the connection
 
 </br>
 
