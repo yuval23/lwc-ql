@@ -104,10 +104,10 @@ export default class App extends LightningElement {
             const orgCredentials = JSON.stringify(orgDetails).replace(/"([^"]+)":/g, '$1:');
 
             // const sample = `{ 
-            //     username:"test-lm2urzytje72@example.com",
-            //     password:"K7_J!tUEA[A7O",
-            //     securityToken:"JULIUS_CCJR",
-            //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
+            //     username:"test-dx-user@example.com",
+            //     password:"CAPTAIN_AMERICA",
+            //     securityToken:"KING_JULIUS_JR",
+            //     instanceUrl:"https://rapid-innovation-8888-dev-ed.cs18.my.salesforce.com" 
             // }`;
 
             return {
