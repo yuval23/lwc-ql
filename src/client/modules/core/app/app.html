@@ -7,17 +7,20 @@
             </div>
 <!-- TABS -->
 <lightning-tabset variant="scoped" active-tab-value={activeTab}>
-<!-- STEP 1 -->
+<!-- INTRO TO GRAPHQL -->
 <lightning-tab icon-name="utility:fallback" label="Simple" value="intro" onactive={handleActiveTab}>
     <div class="slds-grid slds-wrap">
+        <!-- Message Input -->
         <lightning-input class="slds-size_1-of-1" name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
     </div>
 </lightning-tab>
 <!-- SFDX -->
 <lightning-tab icon-name="utility:apex" label="DX CLI" value="sfdx" onactive={handleActiveTab}>
     <div class="slds-grid slds-wrap">
-        <lightning-input class="slds-size_1-of-2" name="commandInput" value={command} label="Command" disabled field-level-help="Beta command display"></lightning-input>
-        <div class="slds-size_1-of-2">
+        <!-- Command -->
+        <lightning-input class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2" name="commandInput" value={command} label="Command" disabled field-level-help="Beta command display"></lightning-input>
+        <!-- Flags -->
+        <div class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2">
             <template for:each={flags} for:item="flag" for:index="index">
                 <div key={flag.index} class="slds-grid slds-p-horizontal_small slds-grid_align-spread">
                     <lightning-input class="slds-size_1-of-4" disabled={flag.disabled} name="flagName" value={flag.name} label="Flag Name"></lightning-input>
@@ -34,6 +37,7 @@
 <!-- Salesforce Direct Login -->
 <lightning-tab icon-name="utility:apex_plugin" label="Salesforce Connection" value="login" onactive={handleActiveTab}>
     <div class="slds-grid slds-wrap">
+        <!-- Login Inputs -->
         <template for:each={loginFields} for:item="field">
                         <div key={field} class="slds-size_6-of-12 slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-p-around_small">
                         <lightning-input class="login-input" name={field} value="" label={field} required></lightning-input>
