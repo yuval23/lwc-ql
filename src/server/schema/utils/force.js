@@ -3,6 +3,7 @@ const jsforce = require('jsforce');
 // Documentation - https://jsforce.github.io/
 
 require('dotenv').config();
+// eslint-disable-next-line no-unused-vars
 const { LOGIN_URL, CLIENT_KEY, CLIENT_SECRET, REDIRECT_URL } = process.env;
 
 /* 
@@ -35,7 +36,7 @@ async function login(username, password, instanceUrl) {
         }
     });
     return response;
-};
+}
 /* 
  * Get Record from recordId
  */
@@ -48,7 +49,7 @@ async function getRecord(org, sobject, recordId) {
         // console.log(result);
     });
     return response;
-};
+}
 
 /* 
  * Query Records - SOQL

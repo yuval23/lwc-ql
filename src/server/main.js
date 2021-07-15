@@ -2,7 +2,6 @@ const express = require('express');
 const compression = require('compression');
 const helmet = require('helmet');
 const path = require('path');
-const graphql = require('graphql');
 const { graphqlHTTP } = require('express-graphql');
 // SFDX
 const { decodeSfdxCommand, runCommand } = require('./cli/routes');

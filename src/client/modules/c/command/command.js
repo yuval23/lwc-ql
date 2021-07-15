@@ -41,6 +41,7 @@ export default class Command extends LightningElement {
 
     toggleEditMode(event) {
         this.disabled = !this.disabled;
+        // toggle button icon
         const button = event.target;
         button.iconName = this.disabled ? 'utility:edit' : 'utility:close';
     }
@@ -67,13 +68,12 @@ export default class Command extends LightningElement {
         this._flags.push({});
     }
     handleRemoveFlag(event) {
-        const flagIndex = parseInt(event.target.dataset.index);
+        const flagIndex = event.target.dataset.index;
         // prevent first row remove
         if (flagIndex > 0) {
             this._flags.splice(flagIndex, 1);
         }
     }
-
 
 
     // Expose Values to parent component

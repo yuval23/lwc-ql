@@ -3,8 +3,13 @@
 - https://lwc.dev - Lightning Web Components 
 - https://graphql.org/ - Official GraphQL Guide
 
-## How to start?
+## Demo App 
+- Includes Simple Message to GraphQL
+- Execution of SFDX CLI commands
+- Connection to Salesforce Api via JSForce
+- It meant to provide a quick start for building apps on Salesforce using LWC and GraphQL with data from Salesforce. 
 
+## How to start?
 
 - Clone this repository OR perform the following steps yourself
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
@@ -12,12 +17,12 @@
 - Use `npm run build:development` - To Copy SLDS folder into `./assets`
 - Run `npm run watch`
 - View on your port - by default `http://localhost:3001`
-- Start Building Components...
+- Start Building Components or fetch more data to your app...
 
 </br>
 
 
-### Final Image
+### Final App Image
 
 
 ![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
