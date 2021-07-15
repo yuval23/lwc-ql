@@ -1,5 +1,5 @@
 {
-    "name": "lwc-cli",
+    "name": "lwc-ql",
     "version": "0.0.1",
     "author": "Yuval Vardi",
     "homepage": "https://github.com/vyuvalv/lwc-ql",
@@ -49,6 +49,10 @@
     "scripts": {
         "build": "lwc-services build -m production",
         "build:development": "lwc-services build",
+        "test:unit": "lwc-services test:unit",
+        "test:unit:coverage": "lwc-services test:unit --coverage",
+        "test:unit:debug": "lwc-services test:unit --debug",
+        "test:unit:watch": "lwc-services test:unit --watch",
         "watch": "run-p watch:client watch:server",
         "watch:client": "lwc-services watch",
         "watch:server": "nodemon"

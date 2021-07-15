@@ -14,7 +14,7 @@
 - Clone this repository OR perform the below steps yourself
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
 - Start with `npm install`
-- Use `npm run build:development` - To Copy SLDS folder into `./assets`
+- Use our node scripts `npm run build` OR `npm run build:development` - To Copy SLDS folder into `./assets`
 - Run `npm run watch`
 - View on your port - by default `http://localhost:3001`
 - Start Building Components or fetch more data to your app...

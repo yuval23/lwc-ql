@@ -6,7 +6,6 @@ const { graphqlHTTP } = require('express-graphql');
 // SFDX
 const { decodeSfdxCommand, runCommand } = require('./cli/routes');
 
-
 // GraphQL
 const rootSchema = require('./schema/root');
 
@@ -17,8 +16,9 @@ const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 5000;
 const SERVER_URL = `http://${HOST}:${PORT}`;
 
-// const DIST_DIR = './dist';
-const DIST_DIR = './src/client';
+// Toggle Between DEV to PRODUCTION 
+const DIST_DIR = './dist';
+// const DIST_DIR = './src/client';
 
 // fetching the graphQl schema
 app.use('/graphql', async(req, res) => {
@@ -36,7 +36,7 @@ app.get('/api/v1/sfdx/:command', (req, res) => {
 });
 
 app.use(express.static(DIST_DIR));
-
+// Use SPA and ignore any url path locations and always serves index
 app.use('*', (req, res) => {
     res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
