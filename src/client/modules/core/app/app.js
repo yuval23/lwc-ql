@@ -70,7 +70,6 @@ export default class App extends LightningElement {
         }
         if (graphQuery) {
             // Run Query
-            console.log('query: ' + graphQuery.query);
             this.loading = true;
             this.fetchData(graphQuery);
         }

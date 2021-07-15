@@ -17,7 +17,7 @@
 ### Final Image
 
 
-![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/base/docs/screens/lwc-ql-home.png)
+![Main Home Page Screen](https://github.com/vyuvalv/lwc-ql/blob/salesforce-connection/docs/screens/lwc-ql-intro.png)
 
 
  </br>
@@ -342,16 +342,22 @@ Open in VS Code:
 
             message = 'Whoo hooo!!';
             response = '';
+
+            
             // button click
             handleClick(event) {
-                console.log('fire');
-
+                // build basic graphQL query
                 const baseQuery = {
                     query: `{
                         hello(message:"${this.message}")
                     }`
                 };
                 this.fetchData(baseQuery);
+            }
+
+            // input value on change
+            handleInputChange(event) {
+                this.message = event.target.value;
             }
 
             // get Data
@@ -374,8 +380,13 @@ Open in VS Code:
 
     ```html
         <template>
-            <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center ">
-                <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+            <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+                <div class="slds-grid slds-wrap">
+                    <!-- Message Input -->
+                    <lightning-input name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
+                    <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
+                </div>
+              
                 <lightning-textarea value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
             </div>
         </template>
@@ -394,7 +405,72 @@ Completed all steps ? Open the app on `http://localhost:3001` for dev with quick
 </br>
 
 
-> To add new components simply create the component folder inside the modules folder
+### GraphQL Query - add a new Data Object
+
+- Create a GraphQL Schema Object for your Response
+
+
+```js
+    const { GraphQLString, GraphQLObjectType, GraphQLID } = require('graphql');
+
+    const ObjectResponseSchema = new GraphQLObjectType({
+        name: 'ObjectName',
+        description: 'Describe your object fields and query methods',
+            fields: () => ({
+                id: { type: GraphQLID },
+                name: { type: GraphQLString }
+            })
+        });
+
+```
+
+- Add a master query method that build the Reuqest and return the Response object
+- Inside your `root.js` we have our master root Query where we will add this ne method
+
+
+```js
+        
+        const RootQuery = new GraphQLObjectType({
+            name: 'RootQueryType',
+            description: 'Root Mother of all queries',
+            fields: {
+                hello: {
+                        type: ObjectResponseSchema,
+                        args: {
+                            name: { type: GraphQLString }
+                        },
+                        async resolve(
+                            parentValue, args, context
+                        ) {
+                            return { 
+                                id:'1',
+                                name: args.name
+                            };
+                        }
+                    },
+                }
+            });
+```
+
+* Use graphql interface to test your queries - `http://localhost:3001/graphql`
+* Add your query call from your client LWC app
+
+```js
+   const graphQuery = { 
+       query: `{ 
+                hello( name:"${this.message}" ){ 
+                        id 
+                        name 
+               } 
+            }` 
+        };
+    // use our service module to call GraphQL
+   const response = await getData(graphQuery);
+```
+
+### Add LWC Components
+
+* To add new components simply create the component folder inside the modules folder
 
 
 > Component bundle will have the following structure
