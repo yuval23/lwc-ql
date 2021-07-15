@@ -471,6 +471,7 @@ Completed all steps ? Open the app on `http://localhost:3001` for dev with quick
 ### Add LWC Components
 
 * To add new components simply create the component folder inside the modules folder
+* We will add it into `./c` folder in our modules to match the way Salesforce Project use it. 
 
 
 > Component bundle will have the following structure
@@ -484,6 +485,7 @@ import { LightningElement, api, track } from 'lwc';
 export default class ComponentName extends LightningElement {}
 ```
 > Calling your component from parent html
+- use `folderName-component-name` 
 ```html
 <c-component-name></c-component-name>
 ```

@@ -1,8 +1,8 @@
 import { LightningElement, api, track } from 'lwc';
 import { getData } from '../../data/services/services';
+import { checkInputsValidity } from '../../utils/formUtils';
 
 const LOGIN_INPUTS = ['username', 'instanceUrl', 'password', 'securityToken'];
-const DEFAULT_FLAGS = [{ name: 'json', type: 'boolean', disabled: true }];
 
 export default class App extends LightningElement {
     @api
@@ -15,120 +15,57 @@ export default class App extends LightningElement {
 
     loading = false;
     activeTab = 'intro';
-    command = 'commands';
+    activeCommand = 'commands';
 
     message = 'Whoo hooo!!';
-
     response = '';
     loginFields = LOGIN_INPUTS;
 
+    // Intro input message
     handleInputChange(event) {
         this.message = event.target.value;
     }
+
+    // Change Tab
     handleActiveTab(event) {
         this.activeTab = event.target.value;
         this.response = '';
-    }
-
-    // Handle Flag items - add/remove/view
-    @track _flags = DEFAULT_FLAGS;
-
-    handleAddFlag() {
-        this._flags.push({});
-    }
-    handleRemoveFlag(event) {
-        const flagIndex = parseInt(event.target.dataset.index);
-        if (flagIndex > 0) {
-            console.log(flagIndex);
-            this._flags.splice(flagIndex, 1);
-        }
-    }
-
-    get flags() {
-        return this._flags.map((item, index) => ({
-            ...item,
-            allowRemove: index > 0,
-            requireValue: item.type !== 'boolean',
-            index
-        }));
     }
 
     // Run callout button 
     handleClick() {
         // Build query
         let graphQuery = { query: `{}` };
+        let isValid = false;
+        // Toggle Query builder based on active tab
         switch (this.activeTab) {
             case 'intro':
+                // check message exists
+                isValid = this.message.length > 1;
                 graphQuery = { query: `{ hello(message:"${this.message}") }` };
                 break;
             case 'sfdx':
-                graphQuery = this.generateSfdxCommand();
+                // Get child component details
+                const { command, flags, valid } = this.template.querySelector('c-command').getOutputCommand();
+                isValid = valid;
+                // console.log('command ' + command);
+                // console.log('flags ' + JSON.stringify(flags));  
+                // this.activeCommand = command;
+                graphQuery = this.generateSfdxCommand(command, flags);
                 break;
             case 'login':
-                graphQuery = this.generateLoginQuery();
+                // Get login input values 
+                const orgDetails = this.getLoginDetails();
+                isValid = orgDetails;
+                graphQuery = this.generateLoginQuery(orgDetails);
                 break;
         }
-        if (graphQuery) {
+
+        if (isValid && graphQuery) {
             // Run Query
             this.loading = true;
             this.fetchData(graphQuery);
         }
-    }
-
-    // Build an SFDX Command
-    generateSfdxCommand() {
-        let flags = ['--json'];
-        const flagInputs = this.template.querySelectorAll('.flag-input');
-        // get flag input values
-        if (flagInputs.length) {
-            flagInputs.forEach(input => {
-                this.flags.forEach(flag => {
-                    if (flag.name === input.name) {
-                        flags.push(`--${flag.name}=${input.value}`);
-                    }
-                })
-            });
-        }
-        return {
-            query: `{
-                sfdxCommands(
-                    command:"${this.command}",
-                    flags:${JSON.stringify(flags)}
-                    ){
-                        total
-                        commands{ id description } 
-                    }
-            }`
-        };
-    }
-
-    // This will pass the input values for the login using JS Force
-    generateLoginQuery() {
-        const orgInputs = this.checkValidity();
-        if (orgInputs) {
-            // format for graphQL Query
-            const orgCredentials = JSON.stringify(orgInputs).replace(/"([^"]+)":/g, '$1:');
-
-            // const sample = `{ 
-            //     username:"test-lm2urzytje72@example.com",
-            //     password:"K7_J!tUEA[A7O",
-            //     securityToken:"JULIUS_CCJR",
-            //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
-            // }`;
-
-            return {
-                query: `{
-                    orgLogin( creds: ${orgCredentials} ){
-                        userId
-                        accessToken
-                        loggedInDate
-                        currentUser { display_name }
-                    }
-                }`
-            };
-        }
-        return;
-
     }
 
     // Call GraphQL Server
@@ -146,16 +83,52 @@ export default class App extends LightningElement {
         }
     }
 
+    // Build an SFDX Command
+    generateSfdxCommand(command, flags) {
+        return {
+            query: `{
+                sfdxCommands(
+                    command:"${command}",
+                    flags:${JSON.stringify(flags)}
+                    ){
+                        total
+                        commands{ id description } 
+                    }
+            }`
+        };
+    }
 
-    // Check and inform form validy 
+    // This will pass the input values for the login using JS Force
+    generateLoginQuery(orgDetails) {
+        // Format for graphQL Query
+        const orgCredentials = JSON.stringify(orgDetails).replace(/"([^"]+)":/g, '$1:');
+
+        // const sample = `{ 
+        //     username:"test-lm2urzytje72@example.com",
+        //     password:"K7_J!tUEA[A7O",
+        //     securityToken:"JULIUS_CCJR",
+        //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
+        // }`;
+
+        return {
+            query: `{
+                orgLogin( creds: ${orgCredentials} ){
+                    userId
+                    accessToken
+                    loggedInDate
+                    currentUser { display_name }
+                }
+            }`
+        };
+    }
+
+    // Check and inform validy 
     // Build object from input values
-    checkValidity() {
+    getLoginDetails() {
         const inputs = this.template.querySelectorAll('.login-input');
+        const valid = checkInputsValidity(inputs);
         let loginValuesObject = {};
-        const valid = [...inputs].reduce((validSoFar, inputField) => {
-            inputField.reportValidity();
-            return validSoFar && inputField.checkValidity();
-        }, true);
+
         if (valid) {
             inputs.forEach(el => {
                 if (el.value) {
@@ -163,6 +136,6 @@ export default class App extends LightningElement {
                 }
             });
         }
-        return valid ? loginValuesObject : false;
+        return valid ? loginValuesObject : valid;
     }
 }

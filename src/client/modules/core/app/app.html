@@ -11,28 +11,12 @@
 <lightning-tab icon-name="utility:fallback" label="Simple" value="intro" onactive={handleActiveTab}>
     <div class="slds-grid slds-wrap">
         <!-- Message Input -->
-        <lightning-input class="slds-size_1-of-1" name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
+        <lightning-input class="slds-size_1-of-1" required name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
     </div>
 </lightning-tab>
 <!-- SFDX -->
 <lightning-tab icon-name="utility:apex" label="DX CLI" value="sfdx" onactive={handleActiveTab}>
-    <div class="slds-grid slds-wrap">
-        <!-- Command -->
-        <lightning-input class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2" name="commandInput" value={command} label="Command" disabled field-level-help="Beta command display"></lightning-input>
-        <!-- Flags -->
-        <div class="slds-size_1-of-2 slds-small-size_1-of-1 slds-medium-size_1-of-2">
-            <template for:each={flags} for:item="flag" for:index="index">
-                <div key={flag.index} class="slds-grid slds-p-horizontal_small slds-grid_align-spread">
-                    <lightning-input class="slds-size_1-of-4" disabled={flag.disabled} name="flagName" value={flag.name} label="Flag Name"></lightning-input>
-                    <lightning-input if:true={flag.requireValue} class="flag-input slds-size_2-of-4 slds-p-horizontal_x-small" name={flag.name} value="" label="Flag Value"></lightning-input>
-                    <div class="slds-size_1-of-4 slds-grid slds-grid_align-end slds-align-bottom">
-                        <lightning-button-icon class="slds-p-horizontal_x-small" if:true={flag.allowRemove} data-index={flag.index} icon-name="utility:delete" variant="bordered" onclick={handleRemoveFlag}></lightning-button-icon>
-                        <lightning-button-icon class="slds-p-horizontal_x-small" icon-name="utility:add" variant="brand" onclick={handleAddFlag}></lightning-button-icon> 
-                    </div>
-                </div>
-            </template>
-</div>
-</div>
+        <c-command command={activeCommand} ></c-command>
 </lightning-tab>
 <!-- Salesforce Direct Login -->
 <lightning-tab icon-name="utility:apex_plugin" label="Salesforce Connection" value="login" onactive={handleActiveTab}>
@@ -43,15 +27,14 @@
                         <lightning-input class="login-input" name={field} value="" label={field} required></lightning-input>
                     </div>
         </template>
-    </div>
+</div>
 </lightning-tab>
 </lightning-tabset>
 
-<!-- Loading -->
-<lightning-spinner if:true={loading} variant="brand" class="" alternative-text="loading..."></lightning-spinner>
-
 <!-- RESPONSE -->
 <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+    <!-- Loading -->
+    <lightning-spinner if:true={loading} variant="brand" alternative-text="loading..."></lightning-spinner>
     <!-- RUN GRAPH QL -->
     <lightning-button class="slds-text-align_center" label="Call GraphQL" variant="destructive" onclick={handleClick}></lightning-button>
     <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
