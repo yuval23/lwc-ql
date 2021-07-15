@@ -11,7 +11,7 @@
 
 ## How to start?
 
-- Clone this repository OR perform the following steps yourself
+- Clone this repository OR perform the below steps yourself
 - `git clone https://github.com/vyuvalv/lwc-ql.git`
 - Start with `npm install`
 - Use `npm run build:development` - To Copy SLDS folder into `./assets`
@@ -69,8 +69,8 @@ Open in VS Code:
         * `@lwc/synthetic-shadow` - add the shaddow dom
         * `express-graphql graphql` - GraphQL with Express Server
         * `jsforce` - Connection to Salesforce
-        * `axios` - Making Rest Calls
-        * `dotenv`- Storing parameters
+        * `axios` - Making Rest Calls easier
+        * `dotenv`- Storing parameters used for the connection to Salesforce Connected App option
 
        ```json
 
@@ -91,10 +91,10 @@ Open in VS Code:
     </details>
     </br>
 
-## Set up LWC services processes
-- Setting up your LWC services configuration file - `lwc-services.config.js` 
+## Setting up the LWC services processes
+- The LWC services configuration file - `lwc-services.config.js` 
     <details>
-    <summary> Setting SLDS Copy process Inside your LWC Services </summary>
+    <summary> Including SLDS Copy inside your project </summary>
     </br>
 
     1. We will use `lwc-services` to do the Following (It's like webpack configuration...):
@@ -137,9 +137,8 @@ Open in VS Code:
     <summary> Add Lightning Base Components module </summary>
     </br>
 
-  
-
-    * `lwc.config.json` - will add the base component location to the bundle
+    * `lwc.config.json` - will add the lightning base component location to the bundle
+    * Powerful reusable base components to get started with UI build. 
 
         ```json
             {
@@ -198,7 +197,7 @@ Open in VS Code:
         </head>
 
         <body>
-            <!-- Our App -->
+            <!-- Our Lightning Web Component Container App -->
             <div id="main"></div>
         </body>
 
@@ -210,13 +209,15 @@ Open in VS Code:
 
 ## Setting Up your Server
 
-- Express Server with GraphQL - `/server/main.js` /  `/server/api.js`
+- We are using Express Server with GraphQL
+    * The base setup comes with a file named  `/server/api.js` which we renamed to `/server/main.js`.
+    * We also use `express-graphql` which helps us bridge between Express to GraphQL Schema.
 
     <details>
-    <summary> Setting Up Your Server With GraphQL Endpoint </summary>
+    <summary> Express Server File Configuration </summary>
     </br>
 
-    * Now its where we starting to include GraphQL code    
+    * Now its where we starting to include GraphQL as our "integration framework"    
     * We will expose an endpoint that can receive the GraphQL Queries
 
     ```js
@@ -236,19 +237,20 @@ Open in VS Code:
             const PORT = process.env.PORT || 5000;
             const SERVER_URL = `http://${HOST}:${PORT}`;
 
-                // const DIST_DIR = './dist';
-                const DIST_DIR = './src/client';
+            // Toggle between DEV or PROD folder
+            // const DIST_DIR = './dist';
+            const DIST_DIR = './src/client';
 
-                // fetching the graphQl schema
-                app.use('/graphql', async(req, res) => {
-                    graphqlHTTP({
-                        schema: rootSchema,
-                        graphiql: true,
-                        context: req
-                    })(req, res);
-                });
+            // GraphQL Endpoint for all callouts
+            app.use('/graphql', async(req, res) => {
+                graphqlHTTP({
+                    schema: rootSchema,
+                    graphiql: true,
+                    context: req
+                })(req, res);
+            });
 
-
+            // Use a static index folder as the only page rendered
             app.use(express.static(DIST_DIR));
 
             app.use('*', (req, res) => {
@@ -355,9 +357,8 @@ Open in VS Code:
             response = '';
 
             // button click
-            handleClick(event) {
+            handleClick() {
                 // build basic graphQL query
-
                 const baseQuery = {
                     query: `{
                         hello(message:"${this.message}")
@@ -376,13 +377,12 @@ Open in VS Code:
             async fetchData(query) {
                 try {
                     const response = await getData(query);
-                    if (response) {
+                    if (response.data) {
                         console.log('SUCCESS ' + JSON.stringify(response));
                         this.response = JSON.stringify(response);
                     }
-
                 } catch (err) {
-                    console.log('error : ' + JSON.stringify(err));
+                    console.error(err);
                 }
             }
         }
@@ -396,21 +396,27 @@ Open in VS Code:
             <div class="slds-grid slds-wrap slds-grid_vertical slds-grid_vertical-align-center">
                 <div class="slds-grid slds-wrap">
                     <!-- Message Input -->
-                    <lightning-input name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
+                    <lightning-input name="messageInput" label="message" field-level-help="Whatever you send you will get back via GraphQL" 
+                                     value={message} 
+                                     onchange={handleInputChange}> </lightning-input>
+                    <!-- Submit Button -->                
                     <lightning-button label="Call GraphQL" variant="brand" onclick={handleClick}></lightning-button>
                 </div>
-              
+                <!-- Response -->     
                 <lightning-textarea value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
             </div>
+
         </template>
+
     ```
 
     </details>
     </br>
 
-Start simple by running `yarn watch` (or `npm run watch`, if you set up the project with `npm`). This will start the project with a local development server.
+Start simple by running `yarn watch` (or `npm run watch`, if you set up the project with `npm`). 
+This will start the project with a local development server.
 
-Completed all steps ? Open the app on `http://localhost:3001` for dev with quick reload.
+* By default its `http://localhost:3001`.
 
 </br>
 
