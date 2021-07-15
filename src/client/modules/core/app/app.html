@@ -26,8 +26,8 @@
                     <lightning-input class="slds-size_1-of-4" disabled={flag.disabled} name="flagName" value={flag.name} label="Flag Name"></lightning-input>
                     <lightning-input if:true={flag.requireValue} class="flag-input slds-size_2-of-4 slds-p-horizontal_x-small" name={flag.name} value="" label="Flag Value"></lightning-input>
                     <div class="slds-size_1-of-4 slds-grid slds-grid_align-end slds-align-bottom">
-                        <lightning-button-icon class="slds-p-horizontal_x-small" icon-name="utility:add" variant="brand" onclick={handleAddFlag}></lightning-button-icon>
                         <lightning-button-icon class="slds-p-horizontal_x-small" if:true={flag.allowRemove} data-index={flag.index} icon-name="utility:delete" variant="bordered" onclick={handleRemoveFlag}></lightning-button-icon>
+                        <lightning-button-icon class="slds-p-horizontal_x-small" icon-name="utility:add" variant="brand" onclick={handleAddFlag}></lightning-button-icon> 
                     </div>
                 </div>
             </template>

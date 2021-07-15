@@ -2,7 +2,7 @@ import { LightningElement, api, track } from 'lwc';
 import { getData } from '../../data/services/services';
 
 const LOGIN_INPUTS = ['username', 'instanceUrl', 'password', 'securityToken'];
-const DEFAULT_FLAGS = [{ name: 'json', type: 'boolean', disabled: true }, { name: 'username', type: 'text', disabled: false }];
+const DEFAULT_FLAGS = [{ name: 'json', type: 'boolean', disabled: true }];
 
 export default class App extends LightningElement {
     @api
@@ -27,6 +27,7 @@ export default class App extends LightningElement {
     }
     handleActiveTab(event) {
         this.activeTab = event.target.value;
+        this.response = '';
     }
 
     // Handle Flag items - add/remove/view
