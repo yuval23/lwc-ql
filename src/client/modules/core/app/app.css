@@ -1,5 +1,5 @@
 :host {
-    --link-color:#ff6000;
+    --bg-link-color:#ff6000;
 }
 
 .app-container {
@@ -7,12 +7,3 @@
     height: var( --container-height);
 }
 
-.link {
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    background-color: var(--link-color);
-    color: white;
-    display: inline-block;
-}

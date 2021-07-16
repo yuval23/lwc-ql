@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { GraphQLID, GraphQLString, GraphQLBoolean, GraphQLObjectType, GraphQLInputObjectType } = require('graphql');
 const { getRecord, query } = require('../utils/force');
 

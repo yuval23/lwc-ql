@@ -1,5 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-import { checkInputsValidity } from '../../utils/formUtils';
+import { reportFormValidity } from '../../utils/formUtils';
 
 const DEFAULT_FLAGS = [{
     "name": "json",
@@ -41,6 +41,7 @@ export default class Command extends LightningElement {
 
     toggleEditMode(event) {
         this.disabled = !this.disabled;
+        // toggle button icon
         const button = event.target;
         button.iconName = this.disabled ? 'utility:edit' : 'utility:close';
     }
@@ -67,13 +68,12 @@ export default class Command extends LightningElement {
         this._flags.push({});
     }
     handleRemoveFlag(event) {
-        const flagIndex = parseInt(event.target.dataset.index);
+        const flagIndex = event.target.dataset.index;
         // prevent first row remove
         if (flagIndex > 0) {
             this._flags.splice(flagIndex, 1);
         }
     }
-
 
 
     // Expose Values to parent component
@@ -82,7 +82,7 @@ export default class Command extends LightningElement {
         let flags = [];
         const flagNames = this.template.querySelectorAll('.flag-key');
         const flagValues = this.template.querySelectorAll('.flag-value');
-        const valid = checkInputsValidity([...flagNames, ...flagValues]);
+        const valid = reportFormValidity([...flagNames, ...flagValues]);
         // get flag input values
         if (flagNames.length) {
             flagNames.forEach(flagKey => {

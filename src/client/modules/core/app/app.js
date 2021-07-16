@@ -1,8 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
 import { getData } from '../../data/services/services';
-import { checkInputsValidity } from '../../utils/formUtils';
-
-const LOGIN_INPUTS = ['username', 'instanceUrl', 'password', 'securityToken'];
 
 export default class App extends LightningElement {
     @api
@@ -18,8 +15,7 @@ export default class App extends LightningElement {
     activeCommand = 'commands';
 
     message = 'Whoo hooo!!';
-    response = '';
-    @track loginFields = LOGIN_INPUTS;
+    @track response = '';
 
     // Intro input message
     handleInputChange(event) {
@@ -49,7 +45,7 @@ export default class App extends LightningElement {
                 break;
             case 'login':
                 // fetch login details 
-                graphQuery = this.generateLoginQuery();
+                graphQuery = this.getLoginQuery();
                 break;
         }
 
@@ -75,7 +71,7 @@ export default class App extends LightningElement {
         }
     }
 
-    // Build an SFDX Command
+    // This will build an SFDX Command - Currently Response Schema only supports commands --json
     getSfdxCommand() {
         // Get child component details
         const { command, flags, valid } = this.template.querySelector('c-command').getOutputCommand();
@@ -95,49 +91,29 @@ export default class App extends LightningElement {
         }: valid;
     }
 
-    // This will pass the input values for the login using JS Force
-    generateLoginQuery() {
-        // Get login input values 
-        const orgDetails = this.getLoginDetails();
-        if(orgDetails){
-            // Format for graphQL Query
-            const orgCredentials = JSON.stringify(orgDetails).replace(/"([^"]+)":/g, '$1:');
+    // This will pass the credentials arguments to login using JS Force
+    getLoginQuery() {
+        // Get login inputs values 
+        const { formInputs, valid } = this.template.querySelector('c-credentials').getFormInputs();
 
             // const sample = `{ 
-            //     username:"test-lm2urzytje72@example.com",
-            //     password:"K7_J!tUEA[A7O",
-            //     securityToken:"JULIUS_CCJR",
-            //     instanceUrl:"https://rapid-innovation-5550-dev-ed.cs18.my.salesforce.com" 
+            //     username:"test-dx-user@example.com",
+            //     password:"CAPTAIN_AMERICA",
+            //     securityToken:"KING_JULIUS_JR",
+            //     instanceUrl:"https://rapid-innovation-8888-dev-ed.cs18.my.salesforce.com" 
             // }`;
-
-            return {
+        
+            // Format for graphQL Query
+            return valid ? {
                 query: `{
-                    orgLogin( creds: ${orgCredentials} ){
+                    orgLogin( creds: ${JSON.stringify(formInputs).replace(/"([^"]+)":/g, '$1:')} ){
                         userId
                         accessToken
                         loggedInDate
                         currentUser { display_name }
                     }
                 }`
-            };
-        }
-        return orgDetails;
+            }: valid;
     }
 
-    // Check and inform validy 
-    // Build object from input values
-    getLoginDetails() {
-        const inputs = this.template.querySelectorAll('.login-input');
-        const valid = checkInputsValidity(inputs);
-        let loginValuesObject = {};
-
-        if (valid) {
-            inputs.forEach(el => {
-                if (el.value) {
-                    loginValuesObject[el.name] = el.value;
-                }
-            });
-        }
-        return valid ? loginValuesObject : valid;
-    }
 }

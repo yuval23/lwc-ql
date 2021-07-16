@@ -5,48 +5,42 @@
                 <!-- RUN GRAPH QL -->
                 <lightning-button-icon icon-name="utility:refresh" variant="brand" onclick={handleClick}></lightning-button-icon>
             </div>
-<!-- TABS -->
-<lightning-tabset variant="scoped" active-tab-value={activeTab}>
-<!-- INTRO TO GRAPHQL -->
-<lightning-tab icon-name="utility:fallback" label="Simple" value="intro" onactive={handleActiveTab}>
-    <div class="slds-grid slds-wrap">
-        <!-- Message Input -->
-        <lightning-input class="slds-size_1-of-1" required name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
-    </div>
-</lightning-tab>
-<!-- SFDX -->
-<lightning-tab icon-name="utility:apex" label="DX CLI" value="sfdx" onactive={handleActiveTab}>
-        <c-command command={activeCommand} ></c-command>
-</lightning-tab>
-<!-- Salesforce Direct Login -->
-<lightning-tab icon-name="utility:apex_plugin" label="Salesforce Connection" value="login" onactive={handleActiveTab}>
-    <div class="slds-grid slds-wrap">
-        <!-- Login Inputs -->
-        <template for:each={loginFields} for:item="field">
-                        <div key={field} class="slds-size_6-of-12 slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-p-around_small">
-                        <lightning-input class="login-input" name={field} value="" label={field} required></lightning-input>
+            <div class="card-body">
+                <!-- TABS -->
+                <lightning-tabset variant="scoped" active-tab-value={activeTab}>
+                <!-- INTRO TO GRAPHQL -->
+                <lightning-tab icon-name="utility:fallback" label="Simple" value="intro" onactive={handleActiveTab}>
+                    <div class="slds-grid slds-wrap">
+                        <!-- Message Input -->
+                        <lightning-input class="slds-size_1-of-1" required name="messageInput" value={message} label="message" field-level-help="Whatever you send you will get back via GraphQL" onchange={handleInputChange}></lightning-input>
                     </div>
-        </template>
-</div>
-</lightning-tab>
-</lightning-tabset>
+                </lightning-tab>
+                <!-- SFDX CLI -->
+                <lightning-tab icon-name="utility:apex" label="DX CLI" value="sfdx" onactive={handleActiveTab}>
+                        <c-command command={activeCommand} ></c-command>
+                </lightning-tab>
+                <!-- Salesforce Direct Api Login -->
+                <lightning-tab icon-name="utility:apex_plugin" label="Salesforce Connection" value="login" onactive={handleActiveTab}>
+                        <c-credentials></c-credentials>
+                </lightning-tab>
+                </lightning-tabset>
 
-<!-- RESPONSE -->
-<div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
-    <!-- Loading -->
-    <lightning-spinner if:true={loading} variant="brand" alternative-text="loading..."></lightning-spinner>
-    <!-- RUN GRAPH QL -->
-    <lightning-button class="slds-text-align_center" label="Call GraphQL" variant="destructive" onclick={handleClick}></lightning-button>
-    <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
-</div>
-
-<div slot="footer" class="slds-grid slds-grid_align-center">
-    <!-- DOCS -->
-    <a href="https://lwc.dev" class="slds-button slds-button_brand" target="_blank">Learn LWC</a>
-    <a href="https://graphql.org" class="slds-button slds-button_neutral slds-theme_inverse" target="_blank">Learn GraphQL</a>
-    <a href="https://developer.salesforce.com/tools/sfdxcli" class="slds-button slds-button_neutral slds-theme_error" target="_blank">Learn SFDX</a>
-    <a href="https://jsforce.github.io/document/" class="slds-button slds-button_neutral slds-theme_warning" target="_blank">Learn JSForce</a>
-</div>
-</lightning-card>
-</div>
+                <!-- RESPONSE -->
+                <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_vertical-align-center">
+                    <!-- Loading -->
+                    <lightning-spinner if:true={loading} variant="brand" alternative-text="loading..."></lightning-spinner>
+                    <!-- RUN GRAPH QL -->
+                    <lightning-button class="slds-text-align_center" label="Call GraphQL" variant="destructive" onclick={handleClick}></lightning-button>
+                    <lightning-textarea label="Response" value={response} class="slds-size_1-of-1" disabled></lightning-textarea>
+                </div>
+            </div>
+            <div slot="footer" class="slds-grid slds-grid_align-center">
+                <!-- DOCS -->
+                <a href="https://lwc.dev" class="slds-button slds-button_brand" target="_blank">Learn LWC</a>
+                <a href="https://graphql.org" class="slds-button slds-button_neutral slds-theme_inverse" target="_blank">Learn GraphQL</a>
+                <a href="https://developer.salesforce.com/tools/sfdxcli" class="slds-button slds-button_neutral slds-theme_error" target="_blank">Learn SFDX</a>
+                <a href="https://jsforce.github.io/document/" class="slds-button slds-button_neutral slds-theme_warning" target="_blank">Learn JSForce</a>
+            </div>
+        </lightning-card>
+    </div>
 </template>

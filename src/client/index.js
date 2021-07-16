@@ -8,8 +8,8 @@ const app = createElement('main-app', { is: MainApp });
 const element = document.querySelector('#main');
 
 window.addEventListener("DOMContentLoaded", () => {
+    // sets default home page 
     const pageName = setHistoryPage('home');
-
     // passing the value into our app
     app.pathName = pageName;
     element.appendChild(app);
