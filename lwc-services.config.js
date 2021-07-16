@@ -8,8 +8,7 @@ const srcFolder = 'src/client';
 module.exports = {
     buildDir: `${buildFolder}`,
     sourceDir: `./${srcFolder}`,
-    bundler: 'webpack',
-    mode: 'development',
+
     resources: [
         { from: `${srcFolder}/resources/`, to: `${buildFolder}/resources/` },
         {
@@ -22,18 +21,4 @@ module.exports = {
     devServer: {
         proxy: { '/': 'http://localhost:5000' }
     },
-
-    // Find the detailed description here: https://www.npmjs.com/package/@lwc/compiler
-    lwcCompilerOutput: {
-        production: {
-            compat: false,
-            minify: true,
-            env: {
-                NODE_ENV: 'production'
-            }
-        }
-    },
-    lwcCompilerStylesheetConfig: {
-        customProperties: { allowDefinition: true }
-    }
 };
