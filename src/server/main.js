@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 5000;
 const SERVER_URL = `http://${HOST}:${PORT}`;
 
 // Toggle Between DEV to PRODUCTION 
-const DIST_DIR = './dist';
-// const DIST_DIR = './src/client';
+// const DIST_DIR = './dist';
+const DIST_DIR = './src/client';
 
 // fetching the graphQl schema
 app.use('/graphql', async(req, res) => {

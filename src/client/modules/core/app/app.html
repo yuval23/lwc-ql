@@ -21,14 +21,7 @@
                 </lightning-tab>
                 <!-- Salesforce Direct Api Login -->
                 <lightning-tab icon-name="utility:apex_plugin" label="Salesforce Connection" value="login" onactive={handleActiveTab}>
-                    <div class="slds-grid slds-wrap">
-                        <!-- Login Inputs -->
-                        <template for:each={loginFields} for:item="field">
-                                        <div key={field} class="slds-size_6-of-12 slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-p-around_small">
-                                        <lightning-input class="login-input" name={field} value="" label={field} required></lightning-input>
-                                    </div>
-                        </template>
-                </div>
+                        <c-credentials></c-credentials>
                 </lightning-tab>
                 </lightning-tabset>
 
