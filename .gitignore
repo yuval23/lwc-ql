@@ -9,7 +9,7 @@ logs
 
 # Standard dist folder
 /dist
-src/client/assets/*
+
 
 # Tooling files
 node_modules
